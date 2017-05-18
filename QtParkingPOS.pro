@@ -8,6 +8,8 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+QT += sql
+
 TARGET = QtParkingPOS
 TEMPLATE = app
 
@@ -27,3 +29,6 @@ FORMS    += logindialog.ui \
     checkoutwindow.ui \
     checkinwindow.ui \
     aboutdialog.ui
+
+RESOURCES += \
+    parking_pos.qrc
