@@ -12,3 +12,8 @@ AboutDialog::~AboutDialog()
 {
     delete ui;
 }
+
+void AboutDialog::on_pushButton_clicked()
+{
+
+}
