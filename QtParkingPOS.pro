@@ -18,17 +18,23 @@ SOURCES += main.cpp\
         logindialog.cpp \
     checkoutwindow.cpp \
     checkinwindow.cpp \
-    aboutdialog.cpp
+    aboutdialog.cpp \
+    paydialog.cpp \
+    registerdialog.cpp
 
 HEADERS  += logindialog.h \
     checkoutwindow.h \
     checkinwindow.h \
-    aboutdialog.h
+    aboutdialog.h \
+    paydialog.h \
+    registerdialog.h
 
 FORMS    += logindialog.ui \
     checkoutwindow.ui \
     checkinwindow.ui \
-    aboutdialog.ui
+    aboutdialog.ui \
+    paydialog.ui \
+    registerdialog.ui
 
 RESOURCES += \
     parking_pos.qrc
