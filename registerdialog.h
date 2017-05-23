@@ -6,6 +6,7 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QDebug>
 
 namespace Ui {
 class registerDialog;
@@ -32,7 +33,6 @@ private slots:
 
 private:
     QSqlDatabase _db;
-    QSqlQuery _query;
     Ui::registerDialog *ui;
 };
 
