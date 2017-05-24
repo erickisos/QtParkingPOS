@@ -110,7 +110,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit"/>
+      <widget class="QLineEdit" name="usernameLEdit"/>
      </item>
      <item>
       <spacer name="horizontalSpacer_9">
@@ -167,7 +167,11 @@
       </spacer>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit_2"/>
+      <widget class="QLineEdit" name="passwordLEdit">
+       <property name="echoMode">
+        <enum>QLineEdit::Password</enum>
+       </property>
+      </widget>
      </item>
      <item>
       <spacer name="horizontalSpacer_7">
@@ -213,14 +217,14 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="okButton">
        <property name="text">
         <string>Ok</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="cancelButton">
        <property name="text">
         <string>Cancel</string>
        </property>
@@ -234,9 +238,9 @@
  <resources/>
  <connections>
   <connection>
-   <sender>lineEdit</sender>
+   <sender>usernameLEdit</sender>
    <signal>returnPressed()</signal>
-   <receiver>pushButton</receiver>
+   <receiver>okButton</receiver>
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -244,15 +248,15 @@
      <y>77</y>
     </hint>
     <hint type="destinationlabel">
-     <x>248</x>
-     <y>179</y>
+     <x>228</x>
+     <y>189</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>lineEdit_2</sender>
+   <sender>passwordLEdit</sender>
    <signal>returnPressed()</signal>
-   <receiver>pushButton</receiver>
+   <receiver>okButton</receiver>
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -266,7 +270,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_2</sender>
+   <sender>cancelButton</sender>
    <signal>released()</signal>
    <receiver>LoginDialog</receiver>
    <slot>close()</slot>

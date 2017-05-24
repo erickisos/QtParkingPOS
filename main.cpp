@@ -9,6 +9,7 @@
 #include <QSqlDriver>
 #include <QSqlError>
 #include <QSqlQuery>
+#include <QDir>
 
 QString creator = "CREATE TABLE IF NOT EXISTS VENTAS("
                   "FOLIO VARCHAR(18) PRIMARY KEY NOT NULL,"
@@ -113,7 +114,7 @@ void startAllTables(QSqlDatabase& sdb)
     }
 }
 
-void checkAdministrator(QSqlDatabase& sdb)
+bool checkAdministrator(QSqlDatabase& sdb)
 {
     QSqlQuery query;
     if(!sdb.isOpen())
@@ -122,15 +123,27 @@ void checkAdministrator(QSqlDatabase& sdb)
         if(!sdb.open())
         {
             qWarning() << "Database couldn't be opened!!: " << sdb.lastError().text();
-            return;
+            return false;
         }
     }
-    query.prepare("SELECT USERNAME FROM LOGIN WHERE USERNAME = (:usn)))");
+    query.prepare("SELECT * FROM LOGIN WHERE USERNAME = (:usn)");
     query.bindValue(":usn", "ROOT");
     bool result = query.exec();
+    int row_count = 0;
+    if(!result)
+    {
+        qWarning() << "Error with Database!: " << query.lastError().text();
+        return false;
+    }
+    else
+    {
+        query.last();
+        row_count = query.at() + 1;
+        qDebug() << "QueryCount = " << row_count;
+    }
     qDebug() << "Result from Exist checking: " << result;
-    qDebug() << "Rows Affected: " << query.numRowsAffected();
-    if(query.numRowsAffected() < 1)
+
+    if(row_count < 1)
     {
         registerDialog rd;
         rd.setDatabase(sdb);
@@ -139,7 +152,9 @@ void checkAdministrator(QSqlDatabase& sdb)
         rd.setDefaultUsername("ROOT");
         rd.lockUsername();
         rd.exec();
+        return true;
     }
+    return true;
 }
 
 int main(int argc, char *argv[])
@@ -158,12 +173,16 @@ int main(int argc, char *argv[])
     else
     {
         startAllTables(sdb);
-        checkAdministrator(sdb);
-        LoginDialog ldial;
-        ldial.show();
+        if(!checkAdministrator(sdb))
+        {
+            qDebug() << "Hubo un problema con la ejecución!";
+            return -1;
+        }
     }
-    /*
+
     LoginDialog w;
+    w.show();
+    /*
     CheckinWindow v;
     CheckoutWindow x;
     AboutDialog ab;

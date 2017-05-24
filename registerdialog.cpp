@@ -66,12 +66,21 @@ void registerDialog::on_acceptButton_clicked()
             return;
         }
     }
-    if(ui->usernameLEdit->text().length() < 4)
+    if(ui->passwordLEdit->text().length() < 4)
     {
         qDebug() << "La contraseña es muy corta!";
         QMessageBox msb;
         msb.setIcon(QMessageBox::Warning);
         msb.setText("Por favor, ingrese una contraseña con 4 o más dígitos.");
+        msb.setStandardButtons(QMessageBox::Ok);
+        msb.exec();
+    }
+    else if(ui->usernameLEdit->text().length() < 4)
+    {
+        qDebug() << "El nombre de usuario es muy corto!";
+        QMessageBox msb;
+        msb.setIcon(QMessageBox::Warning);
+        msb.setText("Por favor ingrese un nombre de usuario con 4 o más digitos!");
         msb.setStandardButtons(QMessageBox::Ok);
         msb.exec();
     }
@@ -83,7 +92,7 @@ void registerDialog::on_acceptButton_clicked()
         password = ui->passwordLEdit->text();
         try
         {
-            _query.prepare("IF(EXISTS(SELECT * FROM LOGIN WHERE USERNAME = :usname))");
+            _query.prepare("SELECT * FROM LOGIN WHERE USERNAME = (:usname)");
             _query.bindValue(":usname", user);
             if(!_query.exec())
             {
@@ -115,6 +124,6 @@ void registerDialog::on_acceptButton_clicked()
             msb.setStandardButtons(QMessageBox::Ok);
             msb.exec();
         }
+        this->close();
     }
-    this->close();
 }
