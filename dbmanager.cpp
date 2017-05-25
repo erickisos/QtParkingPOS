@@ -1,0 +1,117 @@
+#include "dbmanager.h"
+
+DBManager::DBManager(const QString &path)
+{
+    m_db = QSqlDatabase::addDatabase("QSQLITE");
+    m_db.setDatabaseName(path);
+    if(!m_db.open())
+    {
+        qDebug() << "Error: connection with database failed";
+    }
+    else
+    {
+        qDebug() << "Database: connection ok";
+    }
+}
+
+DBManager::~DBManager()
+{
+    if(m_db.isOpen())
+    {
+        m_db.close();
+    }
+}
+
+bool DBManager::isOpen()
+{
+    return m_db.isOpen();
+}
+
+bool DBManager::createTable(const QString &name, QVector<QString> &fields)
+{
+    int data_fields = fields.length();
+    bool success = false;
+    QString full_query = "CREATE TABLE " + name + "(";
+    for(int i = 0; i < data_fields; i++)
+    {
+        full_query += fields[i];
+    }
+    full_query += ");";
+    QSqlQuery query;
+    if(!query.exec(full_query))
+    {
+        qDebug() << "Couldn't create the table "
+                 << name << ": one might already exist.";
+        success = false;
+    }
+    else
+    {
+        success = true;
+    }
+    return success;
+}
+
+bool DBManager::addUser(const QString &name, const QString &password)
+{
+    bool success = false;
+    QSqlQuery query;
+    query.prepare("INSERT INTO LOGIN(USERNAME, PASSWORD) VALUES(:usn, :pss)");
+    query.bindValue(":usn", name);
+    query.bindValue(":pss", password);
+    if(query.exec())
+    {
+        success = true;
+    }
+    else
+    {
+        qDebug() << "AddPerson error:"
+                 << query.lastError();
+    }
+    return success;
+}
+
+bool DBManager::deleteUser(const QString &name)
+{
+    QSqlQuery query;
+    bool success = false;
+    if(personExists(name))
+    {
+        query.prepare("DELETE FROM LOGIN WHERE USERNAME = (:name)");
+        query.bindValue(":name", name);
+        success = query.exec();
+        if(!success)
+        {
+            qDebug() << "deleteUser error:"
+                     << query.lastError();
+        }
+    }
+    return success;
+}
+
+bool DBManager::personExists(const QString &name) const
+{
+    bool exists = false;
+    QSqlQuery checkQuery;
+    checkQuery.prepare("SELECT USERNAME FROM LOGIN WHERE USERNAME = (:name)");
+    checkQuery.bindValue(":name", name);
+    if(checkQuery.exec())
+    {
+        if(checkQuery.next())
+        {
+            exists = true;
+        }
+    }
+    else
+    {
+        qDebug() << "personExists failed:"
+                 << checkQuery.lastError();
+    }
+    return exists;
+}
+
+bool DBManager::addTicketToDatabase(const QString &serial_number)
+{
+    QString folio, hora, fecha;
+    folio = serial_number;
+    hora =
+}

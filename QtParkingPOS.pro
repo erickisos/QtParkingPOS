@@ -20,14 +20,16 @@ SOURCES += main.cpp\
     checkinwindow.cpp \
     aboutdialog.cpp \
     paydialog.cpp \
-    registerdialog.cpp
+    registerdialog.cpp \
+    dbmanager.cpp
 
 HEADERS  += logindialog.h \
     checkoutwindow.h \
     checkinwindow.h \
     aboutdialog.h \
     paydialog.h \
-    registerdialog.h
+    registerdialog.h \
+    dbmanager.h
 
 FORMS    += logindialog.ui \
     checkoutwindow.ui \
