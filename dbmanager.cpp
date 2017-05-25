@@ -22,6 +22,16 @@ DBManager::~DBManager()
     }
 }
 
+QSqlError DBManager::lastError() const
+{
+    return m_db.lastError();
+}
+
+bool DBManager::open()
+{
+    return m_db.open();
+}
+
 bool DBManager::isOpen()
 {
     return m_db.isOpen();
@@ -74,7 +84,7 @@ bool DBManager::deleteUser(const QString &name)
 {
     QSqlQuery query;
     bool success = false;
-    if(personExists(name))
+    if(userExists(name))
     {
         query.prepare("DELETE FROM LOGIN WHERE USERNAME = (:name)");
         query.bindValue(":name", name);
@@ -88,7 +98,7 @@ bool DBManager::deleteUser(const QString &name)
     return success;
 }
 
-bool DBManager::personExists(const QString &name) const
+bool DBManager::userExists(const QString &name) const
 {
     bool exists = false;
     QSqlQuery checkQuery;
@@ -103,7 +113,7 @@ bool DBManager::personExists(const QString &name) const
     }
     else
     {
-        qDebug() << "personExists failed:"
+        qDebug() << "userExists failed:"
                  << checkQuery.lastError();
     }
     return exists;
@@ -113,5 +123,51 @@ bool DBManager::addTicketToDatabase(const QString &serial_number)
 {
     QString folio, hora, fecha;
     folio = serial_number;
-    hora =
+    hora = folio[0];
+    fecha = folio[1];
+    bool success = false;
+    QSqlQuery query;
+    query.prepare("INSERT INTO TICKETS VALUE(:folio, :hora, :fecha)");
+    query.bindValue(":folio", folio);
+    query.bindValue(":hora", hora);
+    query.bindValue(":fecha", fecha);
+    if(query.exec())
+    {
+        qDebug() << "inserted ticket to database!";
+        success = true;
+    }
+    else
+    {
+        qDebug() << "addTicketToDB ailed:"
+                 << query.lastError();
+    }
+    return success;
 }
+
+QUserData& DBManager::getUserData(const QString &username)
+{
+    QUserData data;
+    data.password = "";
+    data.username = "";
+    if(userExists(username))
+    {
+        QSqlQuery query;
+        query.prepare("SELECT USERNAME, PASSWORD FROM LOGIN WHERE USERNAME = (:uname);");
+        query.bindValue(":uname", username);
+        if(query.exec())
+        {
+            if(query.next())
+            {
+                data.username = query.value(0).toString();
+                data.password = query.value(1).toString();
+            }
+        }
+        else
+        {
+            qDebug() << "getUserData failed:"
+                     << query.lastError();
+        }
+    }
+    return data;
+}
+

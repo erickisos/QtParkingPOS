@@ -12,3 +12,8 @@ CheckoutWindow::~CheckoutWindow()
 {
     delete ui;
 }
+
+void CheckoutWindow::setDatabase(QString &path)
+{
+    _db = new DBManager(path);
+}

@@ -114,39 +114,22 @@ void startAllTables(QSqlDatabase& sdb)
     }
 }
 
-bool checkAdministrator(QSqlDatabase& sdb)
+bool checkAdministrator(DBManager& db)
 {
-    QSqlQuery query;
-    if(!sdb.isOpen())
+    if(!db.isOpen())
     {
         qDebug() << "Database isnt opened yet";
-        if(!sdb.open())
+        if(!db.open())
         {
-            qWarning() << "Database couldn't be opened!!: " << sdb.lastError().text();
+            qWarning() << "Database couldn't be opened!!: " << db.lastError().text();
             return false;
         }
     }
-    query.prepare("SELECT * FROM LOGIN WHERE USERNAME = (:usn)");
-    query.bindValue(":usn", "ROOT");
-    bool result = query.exec();
-    int row_count = 0;
-    if(!result)
-    {
-        qWarning() << "Error with Database!: " << query.lastError().text();
-        return false;
-    }
-    else
-    {
-        query.last();
-        row_count = query.at() + 1;
-        qDebug() << "QueryCount = " << row_count;
-    }
-    qDebug() << "Result from Exist checking: " << result;
-
-    if(row_count < 1)
+    QString usroot = "ROOT";
+    if(!db.userExists(usroot))
     {
         registerDialog rd;
-        rd.setDatabase(sdb);
+        rd.setDatabase(database_name);
         rd.setMessage("No se ha encontrado ninguna cuenta de Administrador, ingrese una contraseña para comenzar.");
         rd.setWindowTitle("ParkingPOS - Registro");
         rd.setDefaultUsername("ROOT");
@@ -173,15 +156,17 @@ int main(int argc, char *argv[])
     else
     {
         startAllTables(sdb);
-        if(!checkAdministrator(sdb))
+        sdb.close();
+        DBManager db(database_name);
+        if(!checkAdministrator(db))
         {
             qDebug() << "Hubo un problema con la ejecución!";
             return -1;
         }
+        LoginDialog w;
+        w.setDatabase(database_name);
+        w.show();
     }
-
-    LoginDialog w;
-    w.show();
     /*
     CheckinWindow v;
     CheckoutWindow x;

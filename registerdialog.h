@@ -3,10 +3,8 @@
 
 #include <QDialog>
 #include <QMessageBox>
-#include <QSqlDatabase>
-#include <QSqlQuery>
-#include <QSqlError>
 #include <QDebug>
+#include <dbmanager.h>
 
 namespace Ui {
 class registerDialog;
@@ -18,7 +16,7 @@ class registerDialog : public QDialog
 
 public:
     explicit registerDialog(QWidget *parent = 0);
-    void setDatabase(QSqlDatabase& db);
+    void setDatabase(QString& path);
     void setMessage(QString message);
     void setDefaultUsername(QString username);
     void setDefaultPassword(QString psswd);
@@ -32,7 +30,7 @@ private slots:
     void on_acceptButton_clicked();
 
 private:
-    QSqlDatabase _db;
+    DBManager* _db;
     Ui::registerDialog *ui;
 };
 

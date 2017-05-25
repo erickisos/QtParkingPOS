@@ -38,9 +38,9 @@ void registerDialog::setDefaultPassword(QString psswd)
     ui->passwordLEdit->setText(psswd);
 }
 
-void registerDialog::setDatabase(QSqlDatabase &db)
+void registerDialog::setDatabase(QString& path)
 {
-    _db = db;
+    _db = new DBManager(path);
 }
 
 void registerDialog::on_checkBox_toggled(bool checked)
@@ -57,12 +57,12 @@ void registerDialog::on_checkBox_toggled(bool checked)
 
 void registerDialog::on_acceptButton_clicked()
 {
-    if(!_db.isOpen())
+    if(!_db->isOpen())
     {
         qWarning() << "Database is not opened on acceptClicked";
-        if(!_db.open())
+        if(!_db->open())
         {
-            qWarning() << "Database couldn't be opened!: " << _db.lastError().text();
+            qWarning() << "Database couldn't be opened!: " << _db->lastError().text();
             return;
         }
     }
@@ -87,27 +87,17 @@ void registerDialog::on_acceptButton_clicked()
     else
     {
         QString user, password;
-        QSqlQuery _query;
         user = ui->usernameLEdit->text();
         password = ui->passwordLEdit->text();
         try
         {
-            _query.prepare("SELECT * FROM LOGIN WHERE USERNAME = (:usname)");
-            _query.bindValue(":usname", user);
-            if(!_query.exec())
+            if(!_db->userExists(user))
             {
-                qDebug() << "Executing Query";
-                _query.prepare("INSERT INTO LOGIN(USERNAME, PASSWORD) VALUES(:username, :passwd)");
-                _query.bindValue(":username", user);
-                _query.bindValue(":passwd", password);
-                bool resultado = _query.exec();
-                qDebug() << "Result from Insert: " << resultado;
-                if(!resultado)
-                    qWarning() << _query.lastError().text();
+                _db->addUser(user, password);
             }
             else
             {
-                qDebug() << _db.lastError().text();
+                qDebug() << _db->lastError().text();
                 QMessageBox msb;
                 msb.setIcon(QMessageBox::Critical);
                 msb.setText("El nombre de usuario ya ha sido elegido con anterioridad, reemplazelo e intentelo nuevamente!");
@@ -117,7 +107,7 @@ void registerDialog::on_acceptButton_clicked()
         }
         catch(std::exception& ex)
         {
-            qDebug() << _db.lastError().text();
+            qDebug() << _db->lastError().text();
             QMessageBox msb;
             msb.setIcon(QMessageBox::Critical);
             msb.setText(ex.what());

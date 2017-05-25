@@ -12,3 +12,8 @@ CheckinWindow::~CheckinWindow()
 {
     delete ui;
 }
+
+void CheckinWindow::setDatabase(QString &path)
+{
+    _db = new DBManager(path);
+}

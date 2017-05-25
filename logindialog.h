@@ -2,13 +2,10 @@
 #define LOGINDIALOG_H
 
 #include <QDialog>
-#include <QSqlDatabase>
-#include <QSqlQuery>
-#include <QSqlError>
-#include <QSqlDriver>
 #include <QDebug>
 #include <QMessageBox>
 #include <QDir>
+#include <dbmanager.h>
 
 namespace Ui {
 class LoginDialog;
@@ -20,7 +17,7 @@ class LoginDialog : public QDialog
 
 public:
     explicit LoginDialog(QWidget *parent = 0);
-    void setDatabase(QSqlDatabase& db);
+    void setDatabase(QString& path);
     ~LoginDialog();
 
 private slots:
@@ -28,7 +25,7 @@ private slots:
 
 private:
     Ui::LoginDialog *ui;
-    QSqlDatabase _db;
+    DBManager* _db;
 };
 
 #endif // LOGINDIALOG_H
