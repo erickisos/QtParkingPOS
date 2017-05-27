@@ -20,23 +20,31 @@ SOURCES += main.cpp\
     checkinwindow.cpp \
     aboutdialog.cpp \
     paydialog.cpp \
-    registerdialog.cpp \
-    dbmanager.cpp
+    dbmanager.cpp \
+    QDatabaseManager.cpp \
+    QRegisterDialog.cpp \
+    QAboutDialog.cpp \
+    QLoginDialog.cpp
 
 HEADERS  += logindialog.h \
     checkoutwindow.h \
     checkinwindow.h \
     aboutdialog.h \
     paydialog.h \
-    registerdialog.h \
-    dbmanager.h
+    dbmanager.h \
+    QDatabaseManager \
+    QRegisterDialog \
+    QAboutDialog \
+    QLoginDialog
 
 FORMS    += logindialog.ui \
     checkoutwindow.ui \
     checkinwindow.ui \
     aboutdialog.ui \
     paydialog.ui \
-    registerdialog.ui
+    QRegisterDialog.ui \
+    QAboutDialog.ui \
+    QLoginDialog.ui
 
 RESOURCES += \
     parking_pos.qrc

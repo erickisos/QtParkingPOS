@@ -2,11 +2,12 @@
 
 DBManager::DBManager(const QString &path)
 {
-    m_db = QSqlDatabase::addDatabase("QSQLITE");
+    m_db = QSqlDatabase::addDatabase(DRIVER);
     m_db.setDatabaseName(path);
     if(!m_db.open())
     {
         qDebug() << "Error: connection with database failed";
+        qDebug() << "Error:" << m_db.lastError();
     }
     else
     {
@@ -32,9 +33,14 @@ bool DBManager::open()
     return m_db.open();
 }
 
-bool DBManager::isOpen()
+bool DBManager::isOpen() const
 {
     return m_db.isOpen();
+}
+
+void DBManager::close()
+{
+    m_db.close();
 }
 
 bool DBManager::createTable(const QString &name, QVector<QString> &fields)

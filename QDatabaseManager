@@ -1,19 +1,21 @@
-#ifndef DBMANAGER_H
-#define DBMANAGER_H
+#ifndef QDATABASEMANAGER
+#define QDATABASEMANAGER
 
 #include <QSqlDatabase>
 #include <QSqlDriver>
-#include <QSqlError>
 #include <QSqlQuery>
+#include <QSqlError>
 #include <QDebug>
 
 const QString ventas = "CREATE TABLE IF NOT EXISTS VENTAS("
-                       "FOLIO VARCHAR(18) PRIMARY KEY NOT NULL,"
+                       "INDEX INTEGER PRIMARY KEY NOT NULL,"
+                       "FOLIO VARCHAR(18) NOT NULL,"
                        "HORA VARCHAR(5) NOT NULL,"
                        "FECHA DATE NOT NULL,"
                        "BOLETERA CHAR(1) NOT NULL,"
                        "TIPO INTEGER NOT NULL,"
-                       "COSTO REAL NOT NULL);";
+                       "COSTO REAL NOT NULL,"
+                       "VENDEDOR VARCHAR(8) NOT NULL);";
 const QString costos = "CREATE TABLE IF NOT EXISTS COSTOS("
                        "TIPO INTEGER PRIMARY KEY,"
                        "COSTO REAL NOT NULL,"
@@ -21,10 +23,22 @@ const QString costos = "CREATE TABLE IF NOT EXISTS COSTOS("
 const QString login = "CREATE TABLE IF NOT EXISTS LOGIN("
                       "USERNAME VARCHAR(8) PRIMARY KEY,"
                       "PASSWORD VARCHAR(8) NOT NULL);";
-const QString tickets = "CREATE TABLE IF NOT EXISTS TICKETS("
+const QString tickets = "CREATE TABLE IF NOT EXISTS BOLETERA("
                         "FOLIO VARCHAR(8) PRIMARY KEY,"
                         "HORA VARCHAR(5) NOT NULL,"
                         "FECHA DATE NOT NULL);";
+const QString sesion = "CREATE TABLE IF NOT EXISTS SESION("
+                       "INDEX INTEGER PRIMARY KEY NOT NULL,"
+                       "USERNAME VARCHAR(8) NOT NULL,"
+                       "HORA VARCHAR(5) NOT NULL,"
+                       "FECHA DATE NOT NULL);";
+const QString corte = "CREATE TABLE IF NOT EXISTS CORTE("
+                      "FOLIO VARCHAR(8) PRIMARY KEY NOT NULL,"
+                      "HORA VARCHAR(5) NOT NULL,"
+                      "FECHA DATE NOT NULL,"
+                      "TOTAL REAL NOT NULL"
+                      ");";
+
 const QString DRIVER = "QSQLITE";
 
 typedef struct
@@ -33,20 +47,19 @@ typedef struct
     QString password;
 } QUserData;
 
-class DBManager
+class QDatabaseManager
 {
 public:
-    DBManager(const QString& path);
-    ~DBManager();
+    QDatabaseManager(QString& path);
+    ~QDatabaseManager();
     bool isOpen() const;
     bool open();
     void close();
     bool executeQuery(const QString& s_query);
-    bool createTable(const QString& name, QVector<QString>& fields);
-    bool addUser(const QString& name, const QString& password);
+    bool addUser(const QString& name, const QString& pass);
     bool deleteUser(const QString& name);
-    bool userExists(const QString& name) const;
-    bool addTicketToDatabase(const QString& serial_number);
+    bool userExist(const QString& name) const;
+    bool addTicketToDatabase(const QString& serial);
     bool initAllTables();
     QUserData getUserData(const QString& username);
     QSqlError lastError() const;
@@ -54,4 +67,4 @@ private:
     QSqlDatabase m_db;
 };
 
-#endif // DBMANAGER_H
+#endif // QDATABASEMANAGER

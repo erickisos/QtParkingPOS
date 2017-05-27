@@ -1,56 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>registerDialog</class>
- <widget class="QDialog" name="registerDialog">
+ <class>QRegisterDialog</class>
+ <widget class="QDialog" name="QRegisterDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>341</width>
-    <height>246</height>
+    <width>280</width>
+    <height>140</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>280</width>
+    <height>140</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>280</width>
+    <height>140</height>
+   </size>
+  </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>QtParkingPOS - Registro de Usuario</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_6">
-     <item>
-      <spacer name="horizontalSpacer_5">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLabel" name="messageLabel">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_6">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-    </layout>
-   </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_4">
      <item>
@@ -58,12 +33,29 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
           <widget class="QLabel" name="label">
            <property name="text">
             <string>Usuario:</string>
            </property>
           </widget>
          </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
           <spacer name="horizontalSpacer_2">
            <property name="orientation">
@@ -77,10 +69,6 @@
            </property>
           </spacer>
          </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
           <widget class="QLabel" name="label_2">
            <property name="text">
@@ -88,6 +76,10 @@
            </property>
           </widget>
          </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
           <spacer name="horizontalSpacer_3">
            <property name="orientation">
@@ -101,6 +93,13 @@
            </property>
           </spacer>
          </item>
+         <item>
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>Confirmar Contraseña:</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
       </layout>
@@ -108,14 +107,20 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QLineEdit" name="usernameLEdit">
+        <widget class="QLineEdit" name="userLEdit"/>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="passLEdit">
          <property name="maxLength">
           <number>8</number>
+         </property>
+         <property name="echoMode">
+          <enum>QLineEdit::Password</enum>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="passwordLEdit">
+        <widget class="QLineEdit" name="passConLEdit">
          <property name="maxLength">
           <number>8</number>
          </property>
@@ -144,38 +149,14 @@
       </spacer>
      </item>
      <item>
-      <widget class="QCheckBox" name="checkBox">
-       <property name="text">
-        <string>Mostrar Contraseña</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
-     <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="acceptButton">
+      <widget class="QPushButton" name="aceptarPButton">
        <property name="text">
         <string>Aceptar</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="cancelButton">
+      <widget class="QPushButton" name="cancelarPButton">
        <property name="text">
         <string>Cancelar</string>
        </property>
@@ -188,50 +169,66 @@
  <resources/>
  <connections>
   <connection>
-   <sender>usernameLEdit</sender>
+   <sender>userLEdit</sender>
    <signal>returnPressed()</signal>
-   <receiver>acceptButton</receiver>
+   <receiver>aceptarPButton</receiver>
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>216</x>
-     <y>85</y>
+     <x>191</x>
+     <y>26</y>
     </hint>
     <hint type="destinationlabel">
-     <x>219</x>
-     <y>199</y>
+     <x>168</x>
+     <y>115</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>passwordLEdit</sender>
+   <sender>passLEdit</sender>
    <signal>returnPressed()</signal>
-   <receiver>acceptButton</receiver>
+   <receiver>aceptarPButton</receiver>
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>251</x>
-     <y>102</y>
+     <x>201</x>
+     <y>50</y>
     </hint>
     <hint type="destinationlabel">
-     <x>240</x>
-     <y>208</y>
+     <x>156</x>
+     <y>103</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>cancelButton</sender>
-   <signal>released()</signal>
-   <receiver>registerDialog</receiver>
+   <sender>passConLEdit</sender>
+   <signal>returnPressed()</signal>
+   <receiver>aceptarPButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>205</x>
+     <y>79</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>170</x>
+     <y>115</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cancelarPButton</sender>
+   <signal>clicked()</signal>
+   <receiver>QRegisterDialog</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>289</x>
-     <y>211</y>
+     <x>254</x>
+     <y>114</y>
     </hint>
     <hint type="destinationlabel">
-     <x>129</x>
-     <y>176</y>
+     <x>50</x>
+     <y>96</y>
     </hint>
    </hints>
   </connection>

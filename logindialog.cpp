@@ -10,6 +10,7 @@ LoginDialog::LoginDialog(QWidget *parent) :
 
 LoginDialog::~LoginDialog()
 {
+    delete _db;
     delete ui;
 }
 
