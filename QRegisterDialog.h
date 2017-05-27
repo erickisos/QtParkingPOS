@@ -2,7 +2,7 @@
 #define QREGISTERDIALOG
 
 #include <QDialog>
-#include <QDatabaseManager>
+#include <QDatabaseManager.h>
 
 namespace Ui {
 class QRegisterDialog;

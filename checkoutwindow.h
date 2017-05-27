@@ -2,7 +2,7 @@
 #define CHECKOUTWINDOW_H
 
 #include <QMainWindow>
-#include <dbmanager.h>
+#include <QDatabaseManager.h>
 
 namespace Ui {
 class CheckoutWindow;
@@ -14,12 +14,12 @@ class CheckoutWindow : public QMainWindow
 
 public:
     explicit CheckoutWindow(QWidget *parent = 0);
-    void setDatabase(QString& path);
+    void setDatabaseManager(QDatabaseManager& db);
     ~CheckoutWindow();
 
 private:
     Ui::CheckoutWindow *ui;
-    DBManager* _db;
+    QDatabaseManager* _db;
 };
 
 #endif // CHECKOUTWINDOW_H

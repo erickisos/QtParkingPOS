@@ -1,4 +1,4 @@
-#include "QDatabaseManager"
+#include "QDatabaseManager.h"
 
 QDatabaseManager::QDatabaseManager(QString& path)
 {

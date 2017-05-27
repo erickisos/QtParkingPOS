@@ -13,7 +13,7 @@ CheckinWindow::~CheckinWindow()
     delete ui;
 }
 
-void CheckinWindow::setDatabase(QString &path)
+void CheckinWindow::setDatabaseManager(QDatabaseManager &db)
 {
-    _db = new DBManager(path);
+    _db = &db;
 }

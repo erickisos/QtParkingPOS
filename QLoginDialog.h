@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include <QDebug>
-#include <QDatabaseManager>
+#include <QDatabaseManager.h>
 
 namespace Ui {
 class QLoginDialog;

@@ -1,4 +1,4 @@
-#include "QAboutDialog"
+#include "QAboutDialog.h"
 #include "ui_QAboutDialog.h"
 
 QAboutDialog::QAboutDialog(QWidget *parent) :

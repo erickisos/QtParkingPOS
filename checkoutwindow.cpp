@@ -13,7 +13,7 @@ CheckoutWindow::~CheckoutWindow()
     delete ui;
 }
 
-void CheckoutWindow::setDatabase(QString &path)
+void CheckoutWindow::setDatabaseManager(QDatabaseManager &db)
 {
-    _db = new DBManager(path);
+    _db = &db;
 }
