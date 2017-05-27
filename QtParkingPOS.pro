@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     QDatabaseManager.cpp \
     QRegisterDialog.cpp \
     QAboutDialog.cpp \
-    QLoginDialog.cpp
+    QLoginDialog.cpp \
+    QParkingPOS.cpp
 
 HEADERS  += \
     checkoutwindow.h \
@@ -28,7 +29,8 @@ HEADERS  += \
     QAboutDialog.h \
     QDatabaseManager.h \
     QLoginDialog.h \
-    QRegisterDialog.h
+    QRegisterDialog.h \
+    QParkingPOS.h
 
 FORMS    += \
     checkoutwindow.ui \

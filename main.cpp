@@ -20,19 +20,19 @@ int main(int argc, char *argv[])
     QSplashScreen splash(splash_pixmap);
     splash.show();
     a.processEvents();
-    splash.showMessage("Starting Database connections...");
+    splash.showMessage("Starting Database connections...", Qt::AlignLeft | Qt::AlignTop, Qt::white);
     QString database_name = qApp->applicationDirPath()
             + QDir::separator()
             + "POS.db";
     QDatabaseManager db(database_name);
 
-    splash.showMessage("Starting application...");
+    splash.showMessage("Starting application...", Qt::AlignLeft | Qt::AlignTop, Qt::white);
     QRegisterDialog r;
     QLoginDialog l;
 
     qDebug() << "initAllTables: " << db.initAllTables();
 
-    splash.showMessage("initializing database manager...");
+    splash.showMessage("Initializing database manager...", Qt::AlignLeft | Qt::AlignTop, Qt::white);
     r.setDatabaseManager(db);
     l.setDatabaseManager(db);
     splash.finish(&l);
