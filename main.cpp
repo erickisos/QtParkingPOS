@@ -30,6 +30,7 @@ int main(int argc, char *argv[])
     QRegisterDialog r;
     QLoginDialog l;
 
+
     qDebug() << "initAllTables: " << db.initAllTables();
 
     splash.showMessage("Initializing database manager...", Qt::AlignLeft | Qt::AlignTop, Qt::white);

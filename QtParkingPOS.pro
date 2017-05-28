@@ -16,28 +16,34 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
     checkoutwindow.cpp \
-    checkinwindow.cpp \
     QDatabaseManager.cpp \
     QRegisterDialog.cpp \
     QAboutDialog.cpp \
     QLoginDialog.cpp \
-    QParkingPOS.cpp
+    QParkingPOS.cpp \
+    QCheckInWindow.cpp \
+    QCheckOutWindow.cpp \
+    QCheckOutWindow.cpp
 
 HEADERS  += \
     checkoutwindow.h \
-    checkinwindow.h \
     QAboutDialog.h \
     QDatabaseManager.h \
     QLoginDialog.h \
     QRegisterDialog.h \
-    QParkingPOS.h
+    QParkingPOS.h \
+    QCheckInWindow.h \
+    QCheckOutWindow.h \
+    QCheckOutWindow.h
 
 FORMS    += \
     checkoutwindow.ui \
-    checkinwindow.ui \
     QRegisterDialog.ui \
     QAboutDialog.ui \
-    QLoginDialog.ui
+    QLoginDialog.ui \
+    QCheckInWindow.ui \
+    QCheckOutWindow.ui \
+    QCheckOutWindow.ui
 
 RESOURCES += \
     parking_pos.qrc \

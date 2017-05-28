@@ -21,6 +21,8 @@ public:
 private slots:
     void on_aceptarPButton_clicked();
 
+    void on_aceptarPButton_released();
+
 private:
     Ui::QLoginDialog *ui;
     QDatabaseManager* _db;
