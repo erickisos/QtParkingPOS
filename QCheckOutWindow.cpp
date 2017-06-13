@@ -1,4 +1,4 @@
-#include "QCheckOutWindow"
+#include "QCheckOutWindow.h"
 #include "ui_QCheckOutWindow.h"
 
 QCheckOutWindow::QCheckOutWindow(QWidget *parent) :
@@ -11,4 +11,9 @@ QCheckOutWindow::QCheckOutWindow(QWidget *parent) :
 QCheckOutWindow::~QCheckOutWindow()
 {
     delete ui;
+}
+
+void QCheckOutWindow::setDatabaseManager(QDatabaseManager &db)
+{
+    _db = &db;
 }

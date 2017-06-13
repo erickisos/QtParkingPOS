@@ -1,10 +1,10 @@
-#include "checkinwindow.h"
 #include "checkoutwindow.h"
 
 #include <QLoginDialog.h>
 #include <QAboutDialog.h>
 #include <QRegisterDialog.h>
 #include <QDatabaseManager.h>
+#include <QCheckInWindow.h>
 
 #include <QApplication>
 #include <QSplashScreen>
