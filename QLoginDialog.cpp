@@ -33,3 +33,8 @@ void QLoginDialog::on_aceptarPButton_clicked()
         qDebug() << "User doesn't exist";
     }
 }
+
+void QLoginDialog::on_aceptarPButton_released()
+{
+    qDebug() << "Released!";
+}
