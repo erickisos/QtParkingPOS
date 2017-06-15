@@ -7,12 +7,14 @@
 #include <QCheckInWindow.h>
 #include <QCheckOutWindow.h>
 #include <QParkingSplashscreen.h>
+#include <QAdministratorWindow.h>
 
 #include <QApplication>
 #include <QSplashScreen>
 #include <QDir>
 
 QString admin = "ROOT";
+QString session;
 
 int main(int argc, char *argv[])
 {
@@ -24,7 +26,7 @@ int main(int argc, char *argv[])
 
     splash.show();
 
-    ps.show();
+    //ps.show();
 
     a.processEvents();
     splash.showMessage("Starting Database connections...", Qt::AlignLeft | Qt::AlignTop, Qt::white);
@@ -34,10 +36,12 @@ int main(int argc, char *argv[])
     QDatabaseManager db(database_name);
 
     splash.showMessage("Starting application...", Qt::AlignLeft | Qt::AlignTop, Qt::white);
-    QRegisterDialog r;
+
     QLoginDialog l;
+    QRegisterDialog r;
     QCheckInWindow i;
     QCheckOutWindow o;
+    QAdministratorWindow adminWindow;
 
     qDebug() << "initAllTables: " << db.initAllTables();
 
@@ -46,13 +50,29 @@ int main(int argc, char *argv[])
     l.setDatabaseManager(db);
     i.setDatabaseManager(db);
     o.setDatabaseManager(db);
+    adminWindow.setDatabaseManager(db);
+
+    l.setSessionString(session);
+
     splash.finish(&l);
-    if(!db.userExist(admin))
+    while(!db.userExist(admin))
     {
         qDebug() << "User ROOT doesn't exist!";
-        r.show();
+        r.exec();
     }
-
-    l.show();
+    l.exec();
+    qDebug() << "Esta es la salida seleccionada: " << session;
+    if(session == "Caseta")
+    {
+        o.show();
+    }
+    else if(session == "Boletera")
+    {
+        i.show();
+    }
+    else if(session == "Administrador")
+    {
+        adminWindow.show();
+    }
     return a.exec();
 }

@@ -26,7 +26,10 @@ void QLoginDialog::on_aceptarPButton_clicked()
     mode = ui->comboBox->currentText();
     if(_db->userExist(name))
     {
+        _s->clear();
         qDebug() << "User exist: " << mode;
+        _s->append(mode);
+        this->close();
     }
     else
     {
@@ -37,4 +40,14 @@ void QLoginDialog::on_aceptarPButton_clicked()
 void QLoginDialog::on_aceptarPButton_released()
 {
     qDebug() << "Released!";
+}
+
+QString& QLoginDialog::getSession(void)
+{
+    return this->session;
+}
+
+void QLoginDialog::setSessionString(QString &s)
+{
+    this->_s = &s;
 }
