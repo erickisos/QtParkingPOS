@@ -21,7 +21,9 @@ SOURCES += main.cpp\
     QLoginDialog.cpp \
     QParkingPOS.cpp \
     QCheckInWindow.cpp \
-    QCheckOutWindow.cpp
+    QCheckOutWindow.cpp \
+    QParkingSplashscreen.cpp #\
+    #QCustomSplash.cpp
 
 HEADERS  += \
     QAboutDialog.h \
@@ -30,14 +32,17 @@ HEADERS  += \
     QRegisterDialog.h \
     QParkingPOS.h \
     QCheckInWindow.h \
-    QCheckOutWindow.h
+    QCheckOutWindow.h \
+    QParkingSplashscreen.h #\
+    #QCustomSplash.h
 
 FORMS    += \
     QRegisterDialog.ui \
     QAboutDialog.ui \
     QLoginDialog.ui \
     QCheckInWindow.ui \
-    QCheckOutWindow.ui
+    QCheckOutWindow.ui \
+    QParkingSplashscreen.ui
 
 RESOURCES += \
     parking_pos.qrc \
