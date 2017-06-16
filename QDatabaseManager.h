@@ -6,6 +6,17 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QDebug>
+#include <QDate>
+
+/*
+ * La estructura del ticket será:
+ * A 012345678 2359 1211
+ * PdV -> A
+ * Folio -> 012345678
+ * Hora -> 2359
+ * Fecha -> 1211
+ *
+ */
 
 const QString ventas = "CREATE TABLE IF NOT EXISTS VENTAS("
                        "INDICE INTEGER PRIMARY KEY NOT NULL,"
@@ -47,6 +58,16 @@ typedef struct
     QString password;
 } QUserData;
 
+typedef struct
+{
+    QString folio;
+    QString hora;
+    QString fecha;
+    QString total;
+} QCorteData;
+
+typedef QVector<QCorteData> QCorteSet;
+
 class QDatabaseManager
 {
 public:
@@ -62,9 +83,11 @@ public:
     bool addTicketToDatabase(const QString& serial);
     bool initAllTables();
     QUserData getUserData(const QString& username);
+    QCorteSet getCortes();
     QSqlError lastError() const;
-private:
     QSqlDatabase m_db;
+private:
+    QDate _date;
 };
 
 #endif // QDATABASEMANAGER

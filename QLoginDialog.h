@@ -16,9 +16,13 @@ class QLoginDialog : public QDialog
 public:
     explicit QLoginDialog(QWidget *parent = 0);
     void setDatabaseManager(QDatabaseManager& db);
-    QString& getSession(void);
     void setSessionString(QString& s);
+    void setLoginName(QString& n);
     ~QLoginDialog();
+
+    QString name;
+    QString pass;
+    QString mode;
 
 private slots:
     void on_aceptarPButton_clicked();
@@ -29,7 +33,7 @@ private:
     Ui::QLoginDialog *ui;
     QDatabaseManager* _db;
     QString* _s;
-    QString session;
+    QString* _n;
 };
 
 #endif // QLOGINDIALOG

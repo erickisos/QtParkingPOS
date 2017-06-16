@@ -46,4 +46,15 @@ void QAdministratorWindow::setDatabaseManager(QDatabaseManager &db)
     _db = &db;
 }
 
+void QAdministratorWindow::startDatabaseServices()
+{
+    this->model = new QSqlQueryModel();
+    QSqlQuery* query = new QSqlQuery(_db->m_db);
+    query->prepare("SELECT * FROM CORTE");
+    query->exec();
+    model->setQuery(*query);
+    ui->tableView->setModel(model);
+    qDebug() << "Table CORTE loaded";
+}
+
 

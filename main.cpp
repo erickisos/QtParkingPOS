@@ -15,6 +15,7 @@
 
 QString admin = "ROOT";
 QString session;
+QString l_name;
 
 int main(int argc, char *argv[])
 {
@@ -53,6 +54,7 @@ int main(int argc, char *argv[])
     adminWindow.setDatabaseManager(db);
 
     l.setSessionString(session);
+    l.setLoginName(l_name);
 
     splash.finish(&l);
     while(!db.userExist(admin))

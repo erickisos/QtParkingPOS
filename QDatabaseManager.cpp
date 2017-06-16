@@ -100,6 +100,17 @@ bool QDatabaseManager::userExist(const QString &name) const
 bool QDatabaseManager::addTicketToDatabase(const QString &serial_number)
 {
     bool success = false;
+    QString folio, hora, fecha;
+    folio = serial_number;
+    hora = serial_number.mid(10, 2) + ":" + serial_number.mid(12, 2);
+    fecha = serial_number.mid(14, 2) +
+            "/" +
+            serial_number.mid(16, 2) +
+            "/" +
+            QString(_date.year());
+    qDebug() << "Folio: " << folio;
+    qDebug() << "Hora: " << hora;
+    qDebug() << "Fecha: " << fecha;
     return success;
 }
 
@@ -162,4 +173,24 @@ QUserData QDatabaseManager::getUserData(const QString &username)
 QSqlError QDatabaseManager::lastError() const
 {
     return m_db.lastError();
+}
+
+QCorteSet QDatabaseManager::getCortes()
+{
+    QCorteSet cortes;
+    QSqlQuery query;
+    query.prepare("SELECT * FROM CORTE");
+    if(query.exec())
+    {
+        while(query.next())
+        {
+            QCorteData data;
+            data.folio = query.value("FOLIO").toString();
+            data.fecha = query.value("FECHA").toString();
+            data.hora = query.value("HORA").toString();
+            data.total = query.value("TOTAL").toString();
+            cortes.append(data);
+        }
+    }
+    return cortes;
 }
