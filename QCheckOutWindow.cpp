@@ -17,3 +17,15 @@ void QCheckOutWindow::setDatabaseManager(QDatabaseManager &db)
 {
     _db = &db;
 }
+
+void QCheckOutWindow::keyReleaseEvent(QKeyEvent *event)
+{
+    if(event->key() == Qt::Key_F3)
+    {
+        qDebug() << "Generando nuevo ticket!";
+    }
+    else if(event->key() == Qt::Key_F12)
+    {
+        qDebug() << "Generando Corte!";
+    }
+}

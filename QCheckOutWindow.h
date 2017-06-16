@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QDatabaseManager.h>
+#include <QKeyEvent>
 
 namespace Ui {
 class QCheckOutWindow;
@@ -16,7 +17,8 @@ public:
     explicit QCheckOutWindow(QWidget *parent = 0);
     void setDatabaseManager(QDatabaseManager& db);
     ~QCheckOutWindow();
-
+protected:
+    void keyReleaseEvent(QKeyEvent *event);
 private:
     Ui::QCheckOutWindow *ui;
     QDatabaseManager* _db;

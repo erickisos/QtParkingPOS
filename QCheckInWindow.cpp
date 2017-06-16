@@ -17,3 +17,12 @@ void QCheckInWindow::setDatabaseManager(QDatabaseManager &db)
 {
     _db = &db;
 }
+
+void QCheckInWindow::keyPressEvent(QKeyEvent *event)
+{
+    if(event->key() == Qt::Key_F3)
+    {
+        qDebug() << "Pulsaste F3!";
+        qDebug() << "Generando nuevo ticket!";
+    }
+ }
