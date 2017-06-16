@@ -23,20 +23,19 @@ int main(int argc, char *argv[])
 
     QPixmap splash_pixmap(":/images/splash");
     QSplashScreen splash(splash_pixmap);
-    QParkingSplashscreen ps;
 
     splash.show();
 
     //ps.show();
 
     a.processEvents();
-    splash.showMessage("Starting Database connections...", Qt::AlignLeft | Qt::AlignTop, Qt::white);
+    splash.showMessage("Starting Database connections...", Qt::AlignLeft | Qt::AlignTop);
     QString database_name = qApp->applicationDirPath()
             + QDir::separator()
             + "POS.db";
     QDatabaseManager db(database_name);
 
-    splash.showMessage("Starting application...", Qt::AlignLeft | Qt::AlignTop, Qt::white);
+    splash.showMessage("Starting application...", Qt::AlignLeft | Qt::AlignTop);
 
     QLoginDialog l;
     QRegisterDialog r;
@@ -46,7 +45,7 @@ int main(int argc, char *argv[])
 
     qDebug() << "initAllTables: " << db.initAllTables();
 
-    splash.showMessage("Initializing database manager...", Qt::AlignLeft | Qt::AlignTop, Qt::white);
+    splash.showMessage("Initializing database manager...", Qt::AlignLeft | Qt::AlignTop);
     r.setDatabaseManager(db);
     l.setDatabaseManager(db);
     i.setDatabaseManager(db);
