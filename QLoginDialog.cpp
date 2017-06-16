@@ -40,6 +40,7 @@ void QLoginDialog::on_aceptarPButton_clicked()
             }
             else
             {
+                _db->registerLogin(name);
                 this->close();
             }
         }

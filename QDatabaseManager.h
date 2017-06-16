@@ -7,6 +7,7 @@
 #include <QSqlError>
 #include <QDebug>
 #include <QDate>
+#include <QTime>
 
 /*
  * La estructura del ticket será:
@@ -39,7 +40,7 @@ const QString tickets = "CREATE TABLE IF NOT EXISTS BOLETERA("
                         "HORA VARCHAR(5) NOT NULL,"
                         "FECHA DATE NOT NULL);";
 const QString sesion = "CREATE TABLE IF NOT EXISTS SESION("
-                       "INDEX INTEGER PRIMARY KEY NOT NULL,"
+                       "INDICE INTEGER PRIMARY KEY NOT NULL,"
                        "USERNAME VARCHAR(8) NOT NULL,"
                        "HORA VARCHAR(5) NOT NULL,"
                        "FECHA DATE NOT NULL);";
@@ -81,6 +82,7 @@ public:
     bool deleteUser(const QString& name);
     bool userExist(const QString& name) const;
     bool addTicketToDatabase(const QString& serial);
+    bool registerLogin(const QString& user);
     bool initAllTables();
     QUserData getUserData(const QString& username);
     QCorteSet getCortes();
@@ -88,6 +90,7 @@ public:
     QSqlDatabase m_db;
 private:
     QDate _date;
+    QTime _time;
 };
 
 #endif // QDATABASEMANAGER

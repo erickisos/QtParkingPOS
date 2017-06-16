@@ -133,6 +133,10 @@ bool QDatabaseManager::initAllTables()
                  << executeQuery(login);
         qDebug() << "init tickets table:"
                  << executeQuery(tickets);
+        qDebug() << "init cortes table:"
+                 << executeQuery(corte);
+        qDebug() << "init sesion table:"
+                 << executeQuery(sesion);
         success = true;
     }
     catch(std::exception& ex)
@@ -193,4 +197,33 @@ QCorteSet QDatabaseManager::getCortes()
         }
     }
     return cortes;
+}
+
+bool QDatabaseManager::registerLogin(const QString& user)
+{
+    bool success = false;
+    QString fecha;
+    QString hora;
+    int indice = 0;
+    if(this->userExist(user))
+    {
+        QSqlQuery query;
+        query.exec("SELECT INDICE FROM SESION");
+        while(query.next())
+        {
+            indice++;
+        }
+        query.prepare("INSERT INTO SESION(INDICE, USERNAME, HORA, FECHA) VALUES(:idx, :usn, :hra, :fecha)");
+        qDebug() << "Current date: " << _date.currentDate().toString("dd/MM/yyyy");
+        qDebug() << "Current Time: " << _time.currentTime().toString("HH:mm");
+        qDebug() << "Last index: " << indice;
+        fecha = _date.currentDate().toString("dd/MM/yyyy");
+        hora = _time.currentTime().toString("HH:mm");
+        query.bindValue(":idx", indice);
+        query.bindValue(":usn", user);
+        query.bindValue(":hra", hora);
+        query.bindValue(":fecha", fecha);
+        return query.exec();
+    }
+    return success;
 }
