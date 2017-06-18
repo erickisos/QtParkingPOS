@@ -67,6 +67,18 @@ typedef struct
     QString total;
 } QCorteData;
 
+typedef struct
+{
+    QString indice;
+    QString folio;
+    QString hora;
+    QString fecha;
+    QString boletera;
+    QString tipo;
+    QString costo;
+    QString vendedor;
+} QVentaStruct;
+
 typedef QVector<QCorteData> QCorteSet;
 
 class QDatabaseManager

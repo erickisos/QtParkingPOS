@@ -205,21 +205,25 @@ bool QDatabaseManager::registerLogin(const QString& user)
     QString fecha;
     QString hora;
     int indice = 0;
+    int an_index = 0;
     if(this->userExist(user))
     {
         QSqlQuery query;
         query.exec("SELECT INDICE FROM SESION");
+        qDebug() << "Elementos retornados: " << query.size();
         while(query.next())
         {
-            indice++;
+            an_index++;
+            indice = query.value("INDICE").toInt();
         }
         query.prepare("INSERT INTO SESION(INDICE, USERNAME, HORA, FECHA) VALUES(:idx, :usn, :hra, :fecha)");
         qDebug() << "Current date: " << _date.currentDate().toString("dd/MM/yyyy");
         qDebug() << "Current Time: " << _time.currentTime().toString("HH:mm");
-        qDebug() << "Last index: " << indice;
+        qDebug() << "Last index readed: " << indice;
+        qDebug() << "Last index counted: " << an_index;
         fecha = _date.currentDate().toString("dd/MM/yyyy");
         hora = _time.currentTime().toString("HH:mm");
-        query.bindValue(":idx", indice);
+        query.bindValue(":idx", indice + 1);
         query.bindValue(":usn", user);
         query.bindValue(":hra", hora);
         query.bindValue(":fecha", fecha);
