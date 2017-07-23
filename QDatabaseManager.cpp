@@ -1,9 +1,22 @@
 #include "QDatabaseManager.h"
 
-QDatabaseManager::QDatabaseManager(QString& path)
+QDatabaseManager::QDatabaseManager()
 {
+
+}
+
+//QDatabaseManager::QDatabaseManager(QString& path)
+QDatabaseManager::QDatabaseManager(QString driver, QString hostname, QString username, QString password, QString db_name)
+{
+    m_db = QSqlDatabase::addDatabase(driver);
+    m_db.setHostName(hostname);
+    m_db.setDatabaseName(db_name);
+    m_db.setUserName(username);
+    m_db.setPassword(password);
+    /*
     m_db = QSqlDatabase::addDatabase(DRIVER);
     m_db.setDatabaseName(path);
+    */
     if(!m_db.open())
     {
         qDebug() << "Error: connection with database failed";

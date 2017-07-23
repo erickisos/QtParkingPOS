@@ -17,6 +17,12 @@ QString admin = "ROOT";
 QString session;
 QString l_name;
 
+QString hostname = "localhost";
+QString username = "test";
+QString password = "erick653";
+QString dbname = "POS";
+QString driver = "QMYSQL";
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -30,10 +36,10 @@ int main(int argc, char *argv[])
 
     a.processEvents();
     splash.showMessage("Starting Database connections...", Qt::AlignLeft | Qt::AlignTop);
-    QString database_name = qApp->applicationDirPath()
-            + QDir::separator()
-            + "POS.db";
-    QDatabaseManager db(database_name);
+//    QString database_name = qApp->applicationDirPath()
+//            + QDir::separator()
+//            + "POS.db";
+    QDatabaseManager db(driver, hostname, username, password, dbname);
 
     splash.showMessage("Starting application...", Qt::AlignLeft | Qt::AlignTop);
 

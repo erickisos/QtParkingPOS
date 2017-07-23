@@ -84,7 +84,9 @@ typedef QVector<QCorteData> QCorteSet;
 class QDatabaseManager
 {
 public:
-    QDatabaseManager(QString& path);
+    //QDatabaseManager(QString& path);
+    QDatabaseManager(QString driver, QString hostname, QString username, QString password, QString db_name);
+    QDatabaseManager();
     ~QDatabaseManager();
     bool isOpen() const;
     bool open();
