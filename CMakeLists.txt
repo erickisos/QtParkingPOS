@@ -47,14 +47,23 @@ set(QT_LINK_LIBRARIES Qt6::Core Qt6::Widgets Qt6::Concurrent Qt6::Sql)
 set(QT_PARKINGPOS_SRC
     src/main.cpp
     src/QDatabaseManager.cpp
+    includes/QDatabaseManager.h
     src/QRegisterDialog.cpp
+    includes/QRegisterDialog.h
     src/QAboutDialog.cpp
+    includes/QAboutDialog.h
     src/QLoginDialog.cpp
+    includes/QLoginDialog.h
     src/QParkingPOS.cpp
+    includes/QParkingPOS.h
     src/QCheckInWindow.cpp
+    includes/QCheckInWindow.h
     src/QCheckOutWindow.cpp
+    includes/QCheckOutWindow.h
     src/QParkingSplashscreen.cpp
+    includes/QParkingSplashscreen.h
     src/QAdministratorWindow.cpp
+    includes/QAdministratorWindow.h
     src/QRegisterDialog.ui
     src/QAboutDialog.ui
     src/QLoginDialog.ui
@@ -65,6 +74,5 @@ set(QT_PARKINGPOS_SRC
     resources/parking_pos.qrc
     resources/images.qrc)
 add_executable(qtparkingpos ${QT_PARKINGPOS_SRC})
-include_directories(includes/)
-
+target_include_directories(qtparkingpos PRIVATE includes/)
 target_link_libraries(qtparkingpos ${QT_LINK_LIBRARIES})
