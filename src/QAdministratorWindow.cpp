@@ -52,7 +52,7 @@ void QAdministratorWindow::startDatabaseServices()
     QSqlQuery* query = new QSqlQuery(_db->m_db);
     query->prepare("SELECT * FROM CORTE");
     query->exec();
-    model->setQuery(*query);
+    model->setQuery(std::move(*query));
     ui->tableView->setModel(model);
     qDebug() << "Table CORTE loaded";
 }

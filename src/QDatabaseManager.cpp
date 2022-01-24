@@ -120,7 +120,7 @@ bool QDatabaseManager::addTicketToDatabase(const QString &serial_number)
             "/" +
             serial_number.mid(16, 2) +
             "/" +
-            QString(_date.year());
+            QString::number(_date.year());
     qDebug() << "Folio: " << folio;
     qDebug() << "Hora: " << hora;
     qDebug() << "Fecha: " << fecha;
