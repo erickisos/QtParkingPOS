@@ -28,8 +28,8 @@ if(APPLE AND EXISTS /usr/local/opt/qt6)
   # https://github.com/Homebrew/homebrew-core/issues/8392#issuecomment-325226494
   list(APPEND CMAKE_PREFIX_PATH "/usr/local/opt/qt6")
   set(CMAKE_MACOSX_RPATH 1)
-elseif(APPLE AND EXISTS /opt/homebrew/opt/qt@5)
-  list(APPEND CMAKE_PREFIX_PATH "/opt/homebrew/opt/qt@5")
+elseif(APPLE AND EXISTS /opt/homebrew/opt/qt@6)
+  list(APPEND CMAKE_PREFIX_PATH "/opt/homebrew/opt/qt@6")
   set(CMAKE_MACOSX_RPATH 1)
 endif()
 
@@ -41,42 +41,12 @@ endif()
 
 find_package(
   Qt6
-  COMPONENTS Core Widgets Concurrent Sql
+  COMPONENTS Core Widgets Concurrent Sql Qml
   REQUIRED
 )
 
-set(QT_LINK_LIBRARIES Qt6::Core Qt6::Widgets Qt6::Concurrent Qt6::Sql)
+set(QT_LINK_LIBRARIES Qt6::Core Qt6::Widgets Qt6::Concurrent Qt6::Sql Qt6::Qml)
+set(QT_PARKINGPOS_SRC src/main.cpp resources/main.qrc styles/main.qss)
 
-set(QT_PARKINGPOS_SRC
-    src/main.cpp
-    src/QDatabaseManager.cpp
-    includes/QDatabaseManager.h
-    src/QRegisterDialog.cpp
-    includes/QRegisterDialog.h
-    src/QAboutDialog.cpp
-    includes/QAboutDialog.h
-    src/QLoginDialog.cpp
-    includes/QLoginDialog.h
-    src/QParkingPOS.cpp
-    includes/QParkingPOS.h
-    src/QCheckInWindow.cpp
-    includes/QCheckInWindow.h
-    src/QCheckOutWindow.cpp
-    includes/QCheckOutWindow.h
-    src/QParkingSplashscreen.cpp
-    includes/QParkingSplashscreen.h
-    src/QAdministratorWindow.cpp
-    includes/QAdministratorWindow.h
-    src/QRegisterDialog.ui
-    src/QAboutDialog.ui
-    src/QLoginDialog.ui
-    src/QCheckInWindow.ui
-    src/QCheckOutWindow.ui
-    src/QParkingSplashscreen.ui
-    src/QAdministratorWindow.ui
-    resources/parking_pos.qrc
-    resources/images.qrc
-)
-add_executable(qtparkingpos ${QT_PARKINGPOS_SRC})
+qt_add_executable(qtparkingpos ${QT_PARKINGPOS_SRC})
 target_include_directories(qtparkingpos PRIVATE includes/)
-target_link_libraries(qtparkingpos ${QT_LINK_LIBRARIES})
